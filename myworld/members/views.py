@@ -55,3 +55,15 @@ def updaterecord(request, id):
     member.lastname = last
     member.save()
     return HttpResponseRedirect(reverse('index'))
+
+def testing(request):
+    template = loader.get_template('template.html')
+    mymembers = Members.objects.all().values()
+    names = ''
+    for i in mymembers:
+        names += ' ' + i['firstname']
+    context = {
+        'firstname': 'linus',
+        'names': names
+    }
+    return HttpResponse(template.render(context, request))
